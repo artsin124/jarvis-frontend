@@ -1193,7 +1193,7 @@ h1 {
 }
 
 /* ==========================================================================
-   Ambient Audio HUD Visualiser
+   Ambient Audio HUD Visualiser & Tactical Overlay
    ========================================================================== */
 .ambient-hud {
   position: fixed;
@@ -1203,60 +1203,113 @@ h1 {
   pointer-events: none;
 }
 
-.signal-field {
+.hud-circuit-decor {
   position: absolute;
-  bottom: 2%;
-  left: 2%;
-  width: min(52vw, 690px);
-  height: min(23vh, 200px);
-  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.75));
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.65;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.5));
+}
+
+.hud-line-anim {
+  stroke-dasharray: 8 4;
+  animation: dash-crawl 40s linear infinite;
+}
+
+.hud-node {
+  filter: drop-shadow(0 0 6px #00f0ff);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.visualizer-container {
+  position: absolute;
+  bottom: 2.5%;
+  left: 2.5%;
+  width: min(46vw, 620px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  pointer-events: none;
+}
+
+.signal-field {
+  width: 100%;
+  height: min(18vh, 150px);
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.65));
 }
 
 .signal-line {
-  stroke: var(--cyan);
+  stroke: url(#signal-grad);
   stroke-width: 3;
   stroke-linecap: round;
-  transform-origin: center bottom;
-  transform: scaleY(0.3);
+  transform-origin: center 146px;
+  transform: scaleY(0.28);
   opacity: 0.45;
   animation: signal-idle 2.6s ease-in-out var(--line-delay) infinite alternate;
+  transition: stroke-width 150ms ease, opacity 150ms ease;
 }
 
 .is-active .signal-line {
-  stroke: var(--cyan-bright);
   opacity: 0.98;
   animation-name: signal-active;
   animation-duration: calc(1.15s - var(--audio-level, 0.3) * 0.75s);
-  stroke-width: calc(2px + var(--audio-level, 0.3) * 3.5px);
-  filter: drop-shadow(0 0 10px var(--cyan));
+  stroke-width: calc(2.8px + var(--audio-level, 0.3) * 3.5px);
+  filter: drop-shadow(0 0 10px #00f0ff);
 }
 
 .hud-caption {
-  position: absolute;
-  bottom: 5%;
-  left: 4%;
-  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 0.15em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-shadow: 0 0 8px var(--cyan-glow);
+  padding-left: 0.35rem;
+}
+
+.hud-status-dot {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--ready);
+  box-shadow: 0 0 8px var(--ready), 0 0 14px var(--ready-glow);
+  animation: pulse-dot 2s ease-in-out infinite;
+  transition: all 180ms ease;
+}
+
+.is-active .hud-status-dot {
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff, 0 0 18px var(--cyan-glow);
 }
 
 /* ==========================================================================
    Keyframes & Animations
    ========================================================================== */
+@keyframes dash-crawl {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
 @keyframes signal-idle {
   to {
-    transform: scaleY(0.48);
-    opacity: 0.65;
+    transform: scaleY(0.52);
+    opacity: 0.68;
   }
 }
 
 @keyframes signal-active {
   50% {
-    transform: scaleY(1.35);
+    transform: scaleY(1.38);
   }
   to {
-    transform: scaleY(0.66);
+    transform: scaleY(0.72);
   }
 }
 
@@ -1332,8 +1385,11 @@ h1 {
   .briefing-panel-wrapper {
     width: min(100%, 19rem);
   }
-  .signal-field {
+  .visualizer-container {
     width: 92vw;
+  }
+  .signal-field {
+    width: 100%;
     height: 18vh;
   }
   .panel-context-menu,
