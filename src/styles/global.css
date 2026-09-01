@@ -917,54 +917,94 @@ h1 {
 /* Local Briefing Panel */
 .briefing-panel {
   width: 18.5rem;
+  padding: 1.1rem;
 }
 
-.briefing-kicker,
-.briefing-panel span {
+.briefing-kicker {
   margin: 0;
   color: var(--cyan);
-  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-shadow: 0 0 8px var(--cyan-glow);
+  letter-spacing: 0.22em;
+  text-shadow: 0 0 10px var(--cyan-glow);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.briefing-kicker::before {
+  content: "◈";
+  color: var(--ready);
+  font-size: 0.6rem;
+  text-shadow: 0 0 8px var(--ready-glow);
 }
 
 .briefing-panel h2 {
-  margin: 0.3rem 0 0.68rem;
-  color: var(--ready);
-  font-size: 1.05rem;
-  letter-spacing: 0.03em;
+  margin: 0.35rem 0 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-wrap: balance;
-  text-shadow: 0 0 8px var(--ready-glow);
+  background: linear-gradient(180deg, #ffffff 20%, #7bf5dc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 245, 212, 0.45));
 }
 
 .briefing-readings {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
+  gap: 0.65rem;
+  padding: 0.75rem 0;
   border-top: 1px solid var(--line-dim);
   border-bottom: 1px solid var(--line-dim);
 }
 
 .briefing-readings div {
   display: grid;
-  gap: 0.18rem;
+  gap: 0.22rem;
   min-width: 0;
+  padding: 0.6rem 0.65rem;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(2, 16, 32, 0.7) 0%, rgba(3, 24, 44, 0.5) 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 180ms ease;
+}
+
+.briefing-readings div:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+  background: linear-gradient(135deg, rgba(3, 26, 50, 0.85) 0%, rgba(4, 34, 62, 0.75) 100%);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.18);
+  transform: translateY(-1px);
+}
+
+.briefing-readings span {
+  margin: 0;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px var(--cyan-glow);
 }
 
 .briefing-readings strong {
   color: var(--ice);
-  font-size: 1.18rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+  line-height: 1.15;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
 }
 
 .briefing-readings small {
   overflow: hidden;
   color: var(--text-secondary);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -972,40 +1012,79 @@ h1 {
 .briefing-location {
   display: grid;
   grid-template-columns: 1fr auto;
-  column-gap: 0.55rem;
+  column-gap: 0.75rem;
   align-items: center;
-  padding-top: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  margin-top: 0.65rem;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(2, 16, 32, 0.7) 0%, rgba(3, 24, 44, 0.5) 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: all 180ms ease;
+}
+
+.briefing-location:hover {
+  border-color: rgba(0, 240, 255, 0.45);
+  background: linear-gradient(135deg, rgba(3, 26, 50, 0.85) 0%, rgba(4, 34, 62, 0.75) 100%);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+}
+
+.briefing-location span {
+  grid-column: 1;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px var(--cyan-glow);
 }
 
 .briefing-location p {
   grid-column: 1;
-  margin: 0.15rem 0 0;
-  color: var(--text-primary);
-  font-size: 0.68rem;
+  margin: 0.18rem 0 0;
+  color: var(--ice);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .briefing-location button {
   grid-column: 2;
   grid-row: 1 / span 2;
-  border: 1px solid var(--line-bright);
+  border: 1px solid var(--ready);
   border-radius: 3px;
-  padding: 0.38rem 0.5rem;
-  color: var(--ice);
-  background: rgba(3, 24, 44, 0.85);
+  padding: 0.48rem 0.72rem;
+  color: #011218;
+  background: linear-gradient(135deg, #00f5d4 0%, #00d2b4 100%);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  transition: all 120ms ease;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.35);
+  transition: all 150ms ease;
 }
 
 .briefing-location button:hover:not(:disabled) {
-  background: rgba(5, 38, 68, 0.95);
-  box-shadow: 0 0 12px var(--cyan-glow);
+  background: linear-gradient(135deg, #38ffd8 0%, #00f5d4 100%);
+  box-shadow: 0 0 16px rgba(0, 245, 212, 0.65);
+  transform: translateY(-1px);
+}
+
+.briefing-location button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 0 6px rgba(0, 245, 212, 0.4);
 }
 
 .briefing-location button:disabled {
   cursor: wait;
-  opacity: 0.62;
+  opacity: 0.55;
+  box-shadow: none;
+  transform: none;
 }
 
 /* ==========================================================================
