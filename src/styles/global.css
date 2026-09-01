@@ -849,69 +849,174 @@ h1 {
 
 /* Activity Monitor */
 .activity-monitor {
-  width: 14.8rem;
+  width: 15.5rem;
+  padding: 1rem 1.1rem;
 }
 
 .monitor-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid var(--line-dim);
   color: var(--cyan);
   font-size: 0.64rem;
-  letter-spacing: 0.14em;
-  text-shadow: 0 0 8px var(--cyan-glow);
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.monitor-heading span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.monitor-heading span::before {
+  content: "❖";
+  color: var(--ready);
+  font-size: 0.62rem;
+  text-shadow: 0 0 8px var(--ready-glow);
 }
 
 .monitor-heading i {
-  width: 0.52rem;
-  height: 0.52rem;
+  width: 0.55rem;
+  height: 0.55rem;
   border-radius: 50%;
   background: var(--ready);
-  box-shadow: 0 0 10px var(--ready);
+  box-shadow: 0 0 8px var(--ready), 0 0 16px var(--ready-glow);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+  transition: all 200ms ease;
 }
 
 .activity-monitor strong {
   display: block;
-  margin: 0.72rem 0 0.52rem;
+  margin: 0.75rem 0 0.55rem;
   color: var(--ready);
-  font-size: 1.02rem;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 8px var(--ready-glow);
-}
-
-.activity-monitor.state-error strong {
-  color: var(--danger);
-  text-shadow: 0 0 8px var(--danger-glow);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px var(--ready-glow);
+  transition: color 180ms ease, text-shadow 180ms ease;
 }
 
 .activity-monitor ol {
   display: grid;
-  gap: 0.32rem;
+  gap: 0.38rem;
   margin: 0;
-  padding: 0;
+  padding: 0.45rem 0.6rem;
   list-style: none;
+  background: linear-gradient(135deg, rgba(2, 16, 32, 0.7) 0%, rgba(3, 24, 44, 0.5) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  border-radius: 4px;
   color: var(--text-secondary);
-  font-size: 0.6rem;
-  letter-spacing: 0.04em;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+}
+
+.activity-monitor li {
+  display: flex;
+  align-items: center;
+  transition: color 150ms ease;
 }
 
 .activity-monitor li::before {
   content: "›";
-  margin-right: 0.4rem;
+  margin-right: 0.45rem;
   color: var(--cyan);
   font-weight: 700;
+  font-size: 0.75rem;
   text-shadow: 0 0 6px var(--cyan-glow);
+}
+
+.activity-monitor li:hover {
+  color: var(--ice);
 }
 
 .activity-monitor p {
   margin: 0.75rem 0 0;
-  padding-top: 0.52rem;
+  padding-top: 0.55rem;
   border-top: 1px solid var(--line-dim);
   color: var(--text-muted);
-  font-size: 0.54rem;
-  letter-spacing: 0.08em;
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Activity Monitor State Enhancements */
+.activity-monitor.state-listening {
+  border-color: rgba(255, 51, 102, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(255, 51, 102, 0.25) inset,
+    0 14px 38px rgba(0, 4, 12, 0.75),
+    0 0 24px rgba(255, 51, 102, 0.3);
+}
+
+.activity-monitor.state-listening .monitor-heading i {
+  background: #ff3366;
+  box-shadow: 0 0 8px #ff3366, 0 0 18px rgba(255, 51, 102, 0.85);
+  animation-duration: 0.9s;
+}
+
+.activity-monitor.state-listening strong {
+  color: #ff6690;
+  text-shadow: 0 0 12px var(--danger-glow);
+}
+
+.activity-monitor.state-thinking {
+  border-color: rgba(0, 240, 255, 0.65);
+  box-shadow:
+    0 0 0 1px rgba(0, 240, 255, 0.25) inset,
+    0 14px 38px rgba(0, 4, 12, 0.75),
+    0 0 24px rgba(0, 240, 255, 0.35);
+}
+
+.activity-monitor.state-thinking .monitor-heading i {
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.85);
+  animation-duration: 0.8s;
+}
+
+.activity-monitor.state-thinking strong {
+  color: #38f8ff;
+  text-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.activity-monitor.state-speaking {
+  border-color: rgba(0, 245, 212, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 212, 0.25) inset,
+    0 14px 38px rgba(0, 4, 12, 0.75),
+    0 0 24px rgba(0, 245, 212, 0.3);
+}
+
+.activity-monitor.state-speaking .monitor-heading i {
+  background: #00f5d4;
+  box-shadow: 0 0 8px #00f5d4, 0 0 18px rgba(0, 245, 212, 0.85);
+  animation-duration: 1.1s;
+}
+
+.activity-monitor.state-speaking strong {
+  color: #00f5d4;
+  text-shadow: 0 0 12px var(--ready-glow);
+}
+
+.activity-monitor.state-error {
+  border-color: rgba(255, 51, 102, 0.7);
+  box-shadow:
+    0 0 0 1px rgba(255, 51, 102, 0.3) inset,
+    0 14px 38px rgba(0, 4, 12, 0.75),
+    0 0 26px rgba(255, 51, 102, 0.4);
+}
+
+.activity-monitor.state-error .monitor-heading i {
+  background: #ff3366;
+  box-shadow: 0 0 8px #ff3366, 0 0 18px rgba(255, 51, 102, 0.9);
+}
+
+.activity-monitor.state-error strong {
+  color: var(--danger);
+  text-shadow: 0 0 12px var(--danger-glow);
 }
 
 /* Local Briefing Panel */
